@@ -34,6 +34,9 @@ jobs:
       - name: create content
         run: |
           gpg --version
+          dpkg-scanpackages --version
+          apt-ftparchive --version
+          gzip --version 
           mkdir -p ubuntu
           echo "Hello World" > ubuntu/index.html
       - name: Setup Pages
