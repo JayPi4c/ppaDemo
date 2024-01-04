@@ -38,15 +38,12 @@ jobs:
           GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
       - name: create content
         run: |
+          cd ubuntu
           dpkg-scanpackages --multiversion . > Packages
-          cat Packages
           gzip -k -f Packages
           apt-ftparchive release . > Release
-          cat Release
           gpg --default-key "jonas.jp4c@gmail.com" -abs -o - Release > Release.gpg
-          cat Release.gpg
           gpg --default-key "jonas.jp4c@gmail.com" --clearsign -o - Release > InRelease
-          cat InRelease
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
