@@ -34,16 +34,13 @@ jobs:
       - name: Configure GPG Key
         run: |
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
-        env:
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
       - name: create content
         run: |
-          gpg --version
-          dpkg-scanpackages --version
-          apt-ftparchive --version
-          gzip --version 
-          mkdir -p ubuntu
-          echo "Hello World" > ubuntu/index.html
+          dpkg-scanpackages --multiversion . > Packages
+          gzip -k -f Packages
+          apt-ftparchive release . > Release
+          gpg --default-key "jonas.jp4c@gmail.com" -abs -o - Release > Release.gpg
+          gpg --default-key "jonas.jp4c@gmail.com" --clearsign -o - Release > InRelease
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
