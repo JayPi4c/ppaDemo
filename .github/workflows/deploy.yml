@@ -15,11 +15,11 @@ jobs:
         run: |
           cd ubuntu
           echo "Hello World!" > index.html
-     # - name: Upload Pages artifact
-     #   uses: actions/upload-pages-artifact@v3
-     #   with: 
-     #       name: assets-for-download
-     #       path: ubuntu
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with: 
+            name: assets-for-download
+            path: ubuntu
 
     # <Not provided for brevity>
     # At a minimum this job should upload artifacts using actions/upload-pages-artifact
