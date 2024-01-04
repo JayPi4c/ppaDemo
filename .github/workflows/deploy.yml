@@ -34,7 +34,7 @@ jobs:
       - name: config gpg
         run: |
           echo -n "$GPG_KEY" | base64 -d > gpg.key
-          echo -n "$GPG_PASSWORD" | gpg --batch --yes --passphrase-fd 0 gpg.gpg
+          echo -n "$GPG_PASSWORD" | gpg --batch --yes --passphrase-fd 0 gpg.key
           rm gpg.key
           gpg --list-secret-keys --keyid-format=long
       - name: create content
