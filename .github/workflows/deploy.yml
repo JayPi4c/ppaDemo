@@ -31,12 +31,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: config gpg
+      - name: Configure GPG Key
         run: |
-          echo "$GPG_KEY" | base64 -d > gpg.key
-          echo "$GPG_PASSWORD" | gpg --batch --yes --passphrase-fd 0 --import gpg.key
-          rm gpg.key
-          gpg --list-secret-keys --keyid-format=long
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
       - name: create content
         run: |
           gpg --version
